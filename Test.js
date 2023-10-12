@@ -26,23 +26,23 @@ obj.prop4 = 4;
 
 console.log(obj);
 
-function sum(a,b) {
+function sum1(a,b) {
     return a+b
 }
 
 console.log(obj.prop1);
 console.log(obj.prop2);
-console.log(sum(obj.prop1,obj.prop2));
+console.log(sum1(obj.prop1,obj.prop2));
 
 obj.prop5 = "Property number five";
 
 var sum =0;
 for(var prop in obj) {
     if(typeof obj[prop] === 'number') {
-        sum+=obj[prop];
+        sum1+=obj[prop];
     }
 }
-console.log(sum);
+console.log(sum1);
 
 function containerSum(obj) {
     var sum = 0;
@@ -72,10 +72,11 @@ function addSum(obj) {
     return sum;
 }
 
-function sum(a,b) {
+function sum1(a,b) {
     var sum = addSum(a) + addSum(b);
     return sum;
 }
 
-var wholeSum = sum([1,2,3],4);
+var wholeSum = sum1([1,2,3],4);
 console.log(wholeSum);
+
