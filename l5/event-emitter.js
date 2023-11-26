@@ -1,32 +1,33 @@
-const { listeners, eventNames } = require("process");
-
-//pubsub
-const eventEmiiter = {
+ const eventEmitter = {
     listeners: {},
-    subscribe(eventName, cb) {
-        // const eventListeners = this.listeners[eventName] || [];
-        // eventListeners = eventListeners.concat(cb);
-        // this.listeners[eventName] = eventListeners;
-        //or
+    subscribe: (eventName, cb) => {
+        // const listener = this.listeners[eventName] || [];
+        // listener = listener.concat(cb); // създава нов списък към вече същестуващ, който добавя новия callback
+        // this.listeners[eventName] = listener;
+        // тази концепция може да се представи и чрез един ред
         this.listeners[eventName] = (this.listeners[eventName] || []).concat(cb)
     },
-    emit(eventEvent, data) {
+    emit: (eventName, data) => {
         // const eventListeners = this.listeners[eventName];
         // if(eventListeners) {
-        //     for(let i = 0; i < eventListeners.length; i++) {
+        //     for (let i = 0; i < eventListeners.length; i++) {
         //         const listener = eventListeners[i];
-        //         listener(data);
+        //         listener(data);// извикваме всеки един от listener-ите
         //     }
         // }
-        //or
-        (this.listeners[eventEvent] || []).forEach(cb => cb(data));
+        // тази концепция може и да се представи чрез един ред
+        (this.listeners[eventName] || []).forEach(element => cb(data));
     }
-}
+ };
+ //eventName -> името на дадено събитие
+ //cb -> callback, който извикаме, когато се извика emit(eventName)
+ //data -> данни, които ще се използват при извикване
+ //listeners -> колекция, която съдържа всички event-и
 
-eventEmiiter.subscribe('test', function cb(data) { console.log(1, data)});
-eventEmiiter.subscribe('test', function cb(data) { console.log(2, data)});
-console.log(eventEmiiter.listeners);
+ eventEmitter.subscribe('test', function cb(data) {console.log(1, data)});
+ eventEmitter.subscribe('test', function cb(data) {console.log(2, data)});
 
-setTimeout(() => {
-    eventEmiiter.emit('test', 'Hello!');
-}, 5000);
+ setTimeout(() => {
+    eventEmitter.emit('test','HELLO');
+ }, 5000);
+ console.log(eventEmitter.listeners);
